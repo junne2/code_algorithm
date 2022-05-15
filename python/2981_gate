@@ -1,0 +1,29 @@
+import sys
+
+def getGcd(a, b):
+	r = a % b
+	while r != 0:
+		a = b
+		b = r
+		r = a % b
+	return b
+	
+N = int(sys.stdin.readline())
+
+arr = []
+for _ in range(N):
+	arr.append(int(sys.stdin.readline()))
+arr.sort() 
+
+gcd = arr[1] - arr[0]
+for i in range(2, N):
+	gcd = getGcd(gcd, arr[i]-arr[i-1])
+	
+sol = [gcd]
+for i in range(2, int(gcd**0.5)+1):
+	if gcd % i == 0:
+		print(i, end=' ')
+		if i != gcd//i:
+			sol.insert(0, gcd//i)
+for num in sol:
+	print(num, end=' ')
